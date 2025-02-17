@@ -1,0 +1,29 @@
+﻿@model List<OrderManager.Models.Client>
+<h2>Lista de Clientes</h2>
+<a href="/Client/Create">Novo Cliente</a>
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>CPF</th>
+        <th>Endereco</th>
+    </tr>
+    @if (Model == null || !Model.Any())
+    {
+        <tr>
+            <td colspan="3">Nenhum cliente encontrado.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.Name</td>
+                <td>@client.Email</td>
+                <td>@client.Cpf</td>
+                <td>@client.Addres</td>
+            </tr>
+        }
+    }
+</table>

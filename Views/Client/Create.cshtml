@@ -1,0 +1,42 @@
+@model OrderManager.Models.Client
+
+<h2>Novo Cliente</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Name">Nome:</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" class="form-control" required />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cpf">CPF:</label>
+        <input asp-for="Cpf" class="form-control" required />
+        <span asp-validation-for="Cpf" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Birthday">Data de Nascimento:</label>
+        <input asp-for="Birthday" class="form-control" required />
+        <span asp-validation-for="Birthday" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Addres">Endereço:</label>
+        <input asp-for="Addres" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<a href="/Client" class="btn btn-secondary">Voltar</a>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,119 @@
+@model OrderManager.Models.Order
+
+<h2>Novo Pedido</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label for="ClientId">Cliente:</label>
+        <select id="ClientId" name="ClientId" required>
+            <option value="">Selecione um Cliente</option>
+            @foreach (var client in ViewBag.Clients)
+            {
+                <option value="@client.Id">@client.Name</option>
+            }
+        </select>
+        <span asp-validation-for="ClientId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label for="OrderDate">Data do Pedido:</label>
+        <input type="date" id="OrderDate" name="OrderDate" required />
+        <span asp-validation-for="OrderDate" class="text-danger"></span>
+    </div>
+
+    <div id="items-container">
+        <div class="item-row">
+            <div>
+                <label for="Items_0__Name">Produto:</label>
+                <input type="text" name="Items[0].Name" required />
+                <span asp-validation-for="Items[0].Name" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="Items_0__Price">Preço Unitário:</label>
+                <input type="number" name="Items[0].Price" required class="unit-price" step="0.01" onchange="updateTotal()" />
+                <span asp-validation-for="Items[0].Price" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="Items_0__Quantity">Quantidade:</label>
+                <input type="number" name="Items[0].Quantity" required class="quantity" onchange="updateTotal()" />
+                <span asp-validation-for="Items[0].Quantity" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="Items_0__Total">Total:</label>
+                <input type="number" name="Items[0].Total" disabled />
+            </div>
+        </div>
+    </div>
+
+    <button type="button" onclick="addItem()">Adicionar Item</button>
+
+    <div>
+        <label for="TotalValue">Valor Total:</label>
+        <input type="number" id="TotalValue" name="TotalValue" readonly />
+    </div>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/Order/Index">Voltar</a>
+
+@section Scripts {
+    <script>
+        let itemCount = 1;
+
+        // Função para adicionar um novo item
+        function addItem() {
+            const container = document.getElementById("items-container");
+
+            const newItemRow = document.createElement("div");
+            newItemRow.classList.add("item-row");
+
+            newItemRow.innerHTML = `
+                <div>
+                    <label for="Items_${itemCount}__Name">Produto:</label>
+                    <input type="text" name="Items[${itemCount}].Name" required />
+                    <span asp-validation-for="Items[${itemCount}].Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="Items_${itemCount}__Price">Preço Unitário:</label>
+                    <input type="number" name="Items[${itemCount}].Price" required class="unit-price" step="0.01" onchange="updateTotal()" />
+                    <span asp-validation-for="Items[${itemCount}].Price" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="Items_${itemCount}__Quantity">Quantidade:</label>
+                    <input type="number" name="Items[${itemCount}].Quantity" required class="quantity" onchange="updateTotal()" />
+                    <span asp-validation-for="Items[${itemCount}].Quantity" class="text-danger"></span>
+                </div>
+                <div>
+                    <label for="Items_${itemCount}__Total">Total:</label>
+                    <input type="number" name="Items[${itemCount}].Total" disabled />
+                </div>
+            `;
+            
+            container.appendChild(newItemRow);
+            itemCount++;
+        }
+
+        // Função para calcular o valor total dos itens
+        function updateTotal() {
+            let totalValue = 0;
+            const unitPrices = document.querySelectorAll(".unit-price");
+            const quantities = document.querySelectorAll(".quantity");
+            
+            unitPrices.forEach((unitPrice, index) => {
+                const quantity = quantities[index];
+                const totalInput = unitPrice.closest(".item-row").querySelector("input[name*='Total']");
+
+                const price = parseFloat(unitPrice.value) || 0;
+                const qty = parseInt(quantity.value) || 0;
+                
+                const total = price * qty;
+                totalInput.value = total.toFixed(2);
+                
+                totalValue += total;
+            });
+
+            document.getElementById("TotalValue").value = totalValue.toFixed(2);
+        }
+    </script>
+}

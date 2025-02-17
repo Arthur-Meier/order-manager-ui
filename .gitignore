@@ -1,0 +1,45 @@
+# Diretórios e arquivos de build
+bin/
+obj/
+
+# Arquivos de configuração locais
+appsettings.Development.json
+appsettings.Production.json
+
+# Arquivos de usuário do Visual Studio
+.vscode/
+.vs/
+.idea/
+
+# Arquivos de usuário do Visual Studio Code
+.vscode/
+
+# Arquivos do pacote de dependências do NuGet
+*.nupkg
+.nuget/
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Arquivos de log
+*.log
+
+# Diretórios de dependências locais (não versionar)
+packages/
+node_modules/
+bower_components/
+
+# Arquivos do PostgreSQL (se necessário)
+*.bak
+*.sql
+
+# Arquivos do Bootstrap ou jQuery quando usados como dependências locais
+public/bootstrap/
+public/jquery/
+public/jquery-validation/
+public/jquery-validation-unobtrusive/
+
+# jQuery Validation e jQuery Validation Unobtrusive
+wwwroot/jquery-validation/
+wwwroot/jquery-validation-unobtrusive/

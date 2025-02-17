@@ -1,0 +1,28 @@
+@model OrderManager.Models.Order
+
+<h2>Detalhes do Pedido</h2>
+
+<p><strong>Cliente:</strong> @Model.Client.Name</p>
+<p><strong>Data do Pedido:</strong> @Model.OrderDate.ToShortDateString()</p>
+<p><strong>Total:</strong> @Model.TotalValue.ToString("C")</p>
+
+<h3>Itens do Pedido</h3>
+<table>
+    <tr>
+        <th>Produto</th>
+        <th>Preço Unitário</th>
+        <th>Quantidade</th>
+        <th>Total</th>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Price.ToString("C")</td>
+            <td>@item.Quantity</td>
+            <td>@item.Total.ToString("C")</td>
+        </tr>
+    }
+</table>
+
+<a href="/Order/Index">Voltar</a>

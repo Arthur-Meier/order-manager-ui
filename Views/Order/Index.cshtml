@@ -1,0 +1,32 @@
+﻿@model List<OrderManager.Models.Order>
+
+<h2>Lista de Pedidos</h2>
+<a href="/Order/Create">Novo Pedido</a>
+
+<form method="get">
+    <label for="ClientName">Filtrar por Cliente:</label>
+    <input type="text" name="ClientName" id="ClientName" placeholder="Nome do Cliente" />
+    <label for="StartDate">Data Início:</label>
+    <input type="date" name="StartDate" id="StartDate" />
+    <label for="EndDate">Data Fim:</label>
+    <input type="date" name="EndDate" id="EndDate" />
+    <button type="submit">Filtrar</button>
+</form>
+
+<table>
+    <tr>
+        <th>Cliente</th>
+        <th>Data do Pedido</th>
+        <th>Total</th>
+        <th>Ações</th>
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.Client.Name</td>
+            <td>@order.OrderDate.ToShortDateString()</td>
+            <td>@order.TotalValue.ToString("C")</td>
+            <td><a href="/Order/Details/@order.Id">Detalhes</a></td>
+        </tr>
+    }
+</table>
