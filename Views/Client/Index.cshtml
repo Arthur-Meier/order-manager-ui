@@ -1,29 +1,40 @@
 ﻿@model List<OrderManager.Models.Client>
-<h2>Lista de Clientes</h2>
-<a href="/Client/Create">Novo Cliente</a>
-<table>
-    <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>CPF</th>
-        <th>Endereco</th>
-    </tr>
-    @if (Model == null || !Model.Any())
-    {
-        <tr>
-            <td colspan="3">Nenhum cliente encontrado.</td>
-        </tr>
-    }
-    else
-    {
-        foreach (var client in Model)
-        {
-            <tr>
-                <td>@client.Name</td>
-                <td>@client.Email</td>
-                <td>@client.Cpf</td>
-                <td>@client.Addres</td>
-            </tr>
-        }
-    }
-</table>
+
+<div class="container mt-4 text-center">
+    <h2 class="mb-4">Lista de Clientes</h2>
+
+    <a href="/Client/Create" class="btn btn-primary mb-3">Novo Cliente</a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Endereço</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Nenhum cliente encontrado.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var client in Model)
+                    {
+                        <tr>
+                            <td>@client.Name</td>
+                            <td>@client.Email</td>
+                            <td>@client.Cpf</td>
+                            <td>@client.Addres</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
