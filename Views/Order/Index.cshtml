@@ -1,32 +1,64 @@
 ﻿@model List<OrderManager.Models.Order>
 
-<h2>Lista de Pedidos</h2>
-<a href="/Order/Create">Novo Pedido</a>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Lista de Pedidos</h2>
 
-<form method="get">
-    <label for="ClientName">Filtrar por Cliente:</label>
-    <input type="text" name="ClientName" id="ClientName" placeholder="Nome do Cliente" />
-    <label for="StartDate">Data Início:</label>
-    <input type="date" name="StartDate" id="StartDate" />
-    <label for="EndDate">Data Fim:</label>
-    <input type="date" name="EndDate" id="EndDate" />
-    <button type="submit">Filtrar</button>
-</form>
+    <div class="text-center mb-3">
+        <a href="/Order/Create" class="btn btn-success">Novo Pedido</a>
+    </div>
 
-<table>
-    <tr>
-        <th>Cliente</th>
-        <th>Data do Pedido</th>
-        <th>Total</th>
-        <th>Ações</th>
-    </tr>
-    @foreach (var order in Model)
-    {
-        <tr>
-            <td>@order.Client.Name</td>
-            <td>@order.OrderDate.ToShortDateString()</td>
-            <td>@order.TotalValue.ToString("C")</td>
-            <td><a href="/Order/Details/@order.Id">Detalhes</a></td>
-        </tr>
-    }
-</table>
+    <div class="card shadow-lg p-4 mb-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="ClientName" class="form-label">Filtrar por Cliente:</label>
+                <input type="text" name="ClientName" id="ClientName" class="form-control" placeholder="Nome do Cliente" />
+            </div>
+            <div class="col-md-3">
+                <label for="StartDate" class="form-label">Data Início:</label>
+                <input type="date" name="StartDate" id="StartDate" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label for="EndDate" class="form-label">Data Fim:</label>
+                <input type="date" name="EndDate" id="EndDate" class="form-control" />
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Cliente</th>
+                    <th>Data do Pedido</th>
+                    <th>Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-muted">Nenhum pedido encontrado.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.Client.Name</td>
+                            <td>@order.OrderDate.ToShortDateString()</td>
+                            <td>@order.TotalValue.ToString("C")</td>
+                            <td>
+                                <a href="/Order/Details/@order.Id" class="btn btn-primary btn-sm">Detalhes</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
