@@ -8,12 +8,83 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/order_manager_ui.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+         body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+         .content {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            border-radius: 0;
+        }
+
+        .navbar a.navbar-brand, .navbar a.nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        .navbar-nav .nav-item:hover .nav-link,
+        .navbar-nav .nav-item.active .nav-link {
+            background-color: #0056b3;
+            border-radius: 5px;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @@media (max-width: 768px) {
+            .navbar-collapse {
+                background-color: #007bff;
+                padding: 10px 0;
+            }
+        }
+
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">order_manager_ui</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OrderFlow</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,13 +92,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Pagina Inicial</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
+                            <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Pedidos</a>
+                            <a class="nav-link" asp-area="" asp-controller="Order" asp-action="Index">Pedidos</a>
                         </li>
                     </ul>
                 </div>
@@ -40,11 +111,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="text-center border-top">
         <div class="container">
-            &copy; 2025 - Order Manager - 
+            <p class="mb-0">© 2025 Order Manager - <a href="#">Política de Privacidade</a></p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
