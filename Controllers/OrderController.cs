@@ -62,9 +62,6 @@ namespace OrderManager.Controllers
             _context.Orders.Add(order);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
-        
-            // ViewBag.Clients = _context.Clients.ToList();
-            // return View(order);
         }
 
         public IActionResult Details(int id)

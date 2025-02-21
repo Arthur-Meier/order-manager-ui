@@ -1,0 +1,89 @@
+@model List<OrderManager.Models.Product>
+
+<div class="container mt-4 text-center">
+    <h2 class="mb-4">Lista de Estoque</h2>
+
+    <a href="/Product/Create" class="btn btn-primary mb-3">Novo Produto</a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Custo</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Nenhum produto encontrado.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (product.Image != null && product.Image.Length > 0)
+                                {
+                                    var imageBase64 = Convert.ToBase64String(product.Image);
+                                    <img src="data:image/png;base64,@imageBase64" alt="Imagem do Produto" class="img-thumbnail">
+                                }
+                                else
+                                {
+                                    <img src="~/images/default-product.png" alt="Imagem padrão" class="img-thumbnail" />
+                                }
+                            </td>
+                            <td>@product.ProductName</td>
+                            <td>R$ @product.CostPrice.ToString("N2")</td>
+                            <td>@product.Description</td>
+                            <td>@product.Quantity</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+.table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table img {
+    border-radius: 8px;
+    object-fit: cover;
+    max-width: 80px;
+    max-height: 100px;
+    border: 2px solid #ddd;
+    padding: 2px;
+}
+
+.container h2 {
+    font-weight: bold;
+    color: #343a40;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004b9a;
+}
+</style>
