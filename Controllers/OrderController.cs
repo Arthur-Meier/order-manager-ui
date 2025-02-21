@@ -15,19 +15,28 @@ namespace OrderManager.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string clientName, DateTime? startDate, DateTime? endDate)
+        [HttpGet("orders")]
+        public IActionResult Index(int? clientId, DateTime? startDate, DateTime? endDate)
         {
+            // Certificando-se de que a lista de clientes seja exibida
+            ViewBag.Clients = _context.Clients.ToList();
+
             // Certificando-se de que as datas sejam convertidas para UTC
             DateTime? startDateUtc = startDate?.ToUniversalTime();
             DateTime? endDateUtc = endDate?.ToUniversalTime();
+
+            // Armazena os filtros na ViewBag para reaplicá-los na View
+            ViewBag.SelectedClientId = clientId;
+            ViewBag.SelectedStartDate = startDate?.ToString("yyyy-MM-dd");
+            ViewBag.SelectedEndDate = endDate?.ToString("yyyy-MM-dd");
 
             var orders = _context.Orders
                 .Include(o => o.Client)
                 .Include(o => o.Items)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(clientName))
-                orders = orders.Where(o => o.Client.Name.Contains(clientName));
+            if (clientId.HasValue)
+                orders = orders.Where(o => o.Client.Id == clientId);
 
             if (startDateUtc.HasValue)
                 orders = orders.Where(o => o.OrderDate >= startDateUtc.Value);

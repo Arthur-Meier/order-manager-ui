@@ -43,3 +43,6 @@ public/jquery-validation-unobtrusive/
 # jQuery Validation e jQuery Validation Unobtrusive
 wwwroot/jquery-validation/
 wwwroot/jquery-validation-unobtrusive/
+
+# Variaveis de ambiente do banco
+appsettings.Development.json
