@@ -10,16 +10,24 @@
     <div class="card shadow-lg p-4 mb-4">
         <form method="get" class="row g-3">
             <div class="col-md-4">
-                <label for="ClientName" class="form-label">Filtrar por Cliente:</label>
-                <input type="text" name="ClientName" id="ClientName" class="form-control" placeholder="Nome do Cliente" />
+                <label for="ClientId" class="form-label">Filtrar por Cliente:</label>
+                <select id="ClientId" name="clientId" class="form-select">
+                    <option value="">Selecione um Cliente</option>
+                    @foreach (var client in ViewBag.Clients)
+                    {
+                        <option value="@client.Id" selected="@(client.Id == ViewBag.SelectedClientId ? "selected" : null)">
+                            @client.Name
+                        </option>
+                    }
+                </select>
             </div>
             <div class="col-md-3">
                 <label for="StartDate" class="form-label">Data Início:</label>
-                <input type="date" name="StartDate" id="StartDate" class="form-control" />
+                <input type="date" name="startDate" id="StartDate" class="form-control" value="@ViewBag.SelectedStartDate" />
             </div>
             <div class="col-md-3">
                 <label for="EndDate" class="form-label">Data Fim:</label>
-                <input type="date" name="EndDate" id="EndDate" class="form-control" />
+                <input type="date" name="endDate" id="EndDate" class="form-control" value="@ViewBag.SelectedEndDate" />
             </div>
             <div class="col-md-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary w-100">Filtrar</button>
